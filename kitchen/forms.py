@@ -1,63 +1,91 @@
 from django import forms
-from .models import Dish, Cook
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+from kitchen.models import Dish, Cook, DishType
 
 
 class DishForm(forms.ModelForm):
+    cooks = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+
     class Meta:
         model = Dish
-        fields = [
-            "name",
-            "description",
-            "price",
-            "dish_type",
-            "cooks",
-            "ingredients"
-        ]
-        widgets = {
-            "description": forms.Textarea(
-                attrs={
-                    "rows": 4,
-                    "placeholder": "Describe the dish..."
-                }
-            ),
-            "cooks": forms.SelectMultiple(attrs={"class": "form-control"}),
-            "ingredients": forms.CheckboxSelectMultiple(),
-        }
-        help_texts = {
-            "price": "Enter the price in UAH (no fractional values)",
-            "ingredients": "Select all ingredients included in the dish",
-        }
+        fields = "__all__"
 
 
 class CookCreationForm(UserCreationForm):
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = Cook
-        fields = (
-            "username",
+        fields = UserCreationForm.Meta.fields + (
+            "years_of_experience",
             "first_name",
             "last_name",
-            "years_of_experience",
-            "password1",
-            "password2"
+        )
+
+    def clean_years_of_experience(self):
+        return validate_years_of_experience(
+            self.cleaned_data["years_of_experience"]
         )
 
 
-class CookUpdateForm(forms.ModelForm):
+class CookExperienceUpdateForm(forms.ModelForm):
     class Meta:
         model = Cook
-        fields = ("first_name", "last_name", "years_of_experience")
-        widgets = {
-            "years_of_experience": forms.NumberInput(
-                attrs={
-                    "min": 0,
-                    "max": 100
-                }
-            ),
-        }
+        fields = ["years_of_experience"]
 
     def clean_years_of_experience(self):
-        value = self.cleaned_data["years_of_experience"]
-        if value > 100:
-            raise forms.ValidationError("Too many years of experience!")
-        return value
+        return validate_years_of_experience(
+            self.cleaned_data["years_of_experience"]
+        )
+
+
+def validate_years_of_experience(years_of_experience):
+    if not isinstance(years_of_experience, int):
+        raise ValidationError("Years of experience must be a number.")
+
+    if years_of_experience < 0 or years_of_experience > 50:
+        raise ValidationError("Years of experience must be between 0 and 50.")
+
+    return years_of_experience
+
+
+class CookUsernameSearchForm(forms.Form):
+    username = forms.CharField(
+        required=False,
+        max_length=255,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search by username"
+            }
+        )
+    )
+
+
+class DishNameSearchForm(forms.Form):
+    name = forms.CharField(
+        required=False,
+        max_length=255,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search by name"
+            }
+        )
+    )
+
+
+class DishTypeNameSearchForm(forms.Form):
+    name = forms.CharField(
+        required=False,
+        max_length=255,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search by name"
+            }
+        )
+    )
