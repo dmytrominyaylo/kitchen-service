@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
 
-</body>
-</html>
+{% block content %}
+  <h1>
+    Dish list
+    <a href="{% url 'kitchen:dish-create' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
+  <div class="mb-3">
+    <form class="form-inline" action="" method="get">
+      {{ search_form|crispy }}
+      <input class="btn btn-primary" type="submit" value="🔍">
+    </form>
+  </div>
+  {% if dish_list %}
+    <ul>
+      {% for dish in dish_list %}
+        <li>
+          <a href="{% url "kitchen:dish-detail" pk=dish.id %} ">{{ dish.id }}</a>
+          {{ dish.name }} ({{ dish.dish_type.name }})
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no dishes in kitchen</p>
+  {% endif %}
+{% endblock %}
