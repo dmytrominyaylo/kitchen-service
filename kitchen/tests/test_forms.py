@@ -1,6 +1,6 @@
 from django.test import TestCase
 from kitchen.forms import CookCreationForm, DishForm
-from kitchen.models import DishType, Ingredient, Cook
+from kitchen.models import DishType, Cook
 
 
 class CookFormTests(TestCase):
@@ -32,8 +32,6 @@ class CookFormTests(TestCase):
 class DishFormTests(TestCase):
     def setUp(self):
         self.dish_type = DishType.objects.create(name="Soup")
-        self.ingredient1 = Ingredient.objects.create(name="Tomato")
-        self.ingredient2 = Ingredient.objects.create(name="Salt")
         self.cook1 = Cook.objects.create_user(
             username="cook1", password="C00kP@ssword"
         )
@@ -45,7 +43,6 @@ class DishFormTests(TestCase):
             "price": "59.99",
             "dish_type": self.dish_type.id,
             "cooks": [self.cook1.id],
-            "ingredients": [self.ingredient1.id, self.ingredient2.id]
         }
         form = DishForm(data=form_data)
         self.assertTrue(form.is_valid())
@@ -57,7 +54,6 @@ class DishFormTests(TestCase):
             "price": "0.00",
             "dish_type": "",
             "cooks": [],
-            "ingredients": []
         }
         form = DishForm(data=form_data)
         self.assertFalse(form.is_valid())

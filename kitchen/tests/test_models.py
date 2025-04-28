@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from kitchen.models import DishType, Dish, Ingredient
+from kitchen.models import DishType, Dish, Cook
 
 User = get_user_model()
 
@@ -9,12 +9,6 @@ class DishTypeModelTest(TestCase):
     def test_str_representation(self):
         dish_type = DishType.objects.create(name="Dessert")
         self.assertEqual(str(dish_type), "Dessert")
-
-
-class IngredientModelTest(TestCase):
-    def test_str_representation(self):
-        ingredient = Ingredient.objects.create(name="Sugar")
-        self.assertEqual(str(ingredient), "Sugar")
 
 
 class CookModelTest(TestCase):
@@ -39,7 +33,6 @@ class DishModelTest(TestCase):
     def setUp(self):
         self.dish_type = DishType.objects.create(name="Main")
         self.cook = User.objects.create_user(username="chef", password="pass")
-        self.ingredient = Ingredient.objects.create(name="Tomato")
 
     def test_str_representation(self):
         dish = Dish.objects.create(
@@ -49,6 +42,4 @@ class DishModelTest(TestCase):
             dish_type=self.dish_type
         )
         dish.cooks.add(self.cook)
-        dish.ingredients.add(self.ingredient)
-
         self.assertEqual(str(dish), "Pasta")
