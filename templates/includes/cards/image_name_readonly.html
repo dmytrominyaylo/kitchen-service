@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div class="card rounded-0">
+  <div class="ratio ratio-1x1">
+    {% include "includes/image_source.html" with image=object.image %}
+  </div>
+
+  <div class="card-body">
+    {{ object.name }}
+  </div>
+</div>
