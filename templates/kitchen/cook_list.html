@@ -1,42 +1,36 @@
 {% extends "base.html" %}
-{% load crispy_forms_filters %}
 
-{% block content %}
-  <h1>
-    Cook List
-    <a href="{% url 'kitchen:cook-create' %}" class="btn btn-primary link-to-page">
-      Create
-    </a>
-  </h1>
-  <div class="mb-3">
-    <form class="form-inline" action="" method="get">
-      {{ search_form|crispy }}
-      <input class="btn btn-primary" type="submit" value="🔍">
-    </form>
+{% block main %}
+  <div class="card">
+    <div class="card-header text-start display-6">
+      {% include "includes/header/search_title_create.html" with title="Cooks" search_field="username" %}
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Years of experience</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cook in object_list %}
+            <tr>
+              <th scope="row">{{ cook.id }}</th>
+              <td>{{ cook.first_name }}</td>
+              <td>{{ cook.last_name }}</td>
+              <td>{{ cook.username }}</td>
+              <td>{{ cook.years_of_experience }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      {% include "includes/pagination.html" %}
+    </div>
   </div>
-
-  {% if cook_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Years of experience</th>
-      </tr>
-      {% for cook in cook_list %}
-        <tr>
-          <td>{{ cook.id }}</td>
-          <td><a href="{{ cook.get_absolute_url }}">{{ cook.username }} {% if user == cook %} (Me){% endif %}</a>
-          </td>
-          <td>{{ cook.first_name }}</td>
-          <td>{{ cook.last_name }}</td>
-          <td>{{ cook.years_of_experience }}</td>
-        </tr>
-      {% endfor %}
-
-    </table>
-  {% else %}
-    <p>There are no cooks in the service.</p>
-  {% endif %}
 {% endblock %}

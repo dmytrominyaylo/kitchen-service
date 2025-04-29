@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView
+from django.db.models import Q
 from .models import Dish, Cook, DishType
 from .forms import (
     DishForm,
@@ -127,7 +128,20 @@ class CookListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        search_value = self.request.GET.get("search_value", "")
+        context["search_value"] = search_value
         return context
+
+    def get_queryset(self):
+        queryset = Cook.objects.all()
+        search_value = self.request.GET.get("search_value", "")
+        if search_value:
+            queryset = queryset.filter(
+                Q(first_name__icontains=search_value)
+                | Q(last_name__icontains=search_value)
+                | Q(username__icontains=search_value)
+            )
+        return queryset
 
 
 class CookDetailView(LoginRequiredMixin, generic.DetailView):
