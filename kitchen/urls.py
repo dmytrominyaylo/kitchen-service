@@ -16,6 +16,7 @@ from .views import (
     DishTypeUpdateView,
     DishTypeDeleteView,
     toggle_assign_to_dish,
+    CustomLogoutView,
 )
 
 urlpatterns = [
@@ -94,6 +95,11 @@ urlpatterns = [
         "cooks/<int:pk>/delete/",
         CookDeleteView.as_view(),
         name="cook-delete"
+    ),
+    path(
+        "logout/",
+        CustomLogoutView.as_view(),
+        name="logout"
     ),
 ]
 
