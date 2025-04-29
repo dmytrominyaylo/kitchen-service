@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block main %}
   <h1>
     Username: {{ cook.username }}
     <a href="{% url 'kitchen:cook-delete' pk=cook.id %}" class="btn btn-danger link-to-page">
