@@ -8,11 +8,25 @@
     <input id="search_value" name="search_value" type="search" class="form-control rounded-0" placeholder="Search..."
            value="{{ search_value }}">
     {% if user.is_authenticated %}
-      <a href="{% url create_url %}"
-         class="btn btn-outline-success btn-sm d-flex align-items-center justify-content-center"
-         style="height: 38px; width: 38px;" title="Create">
-        ➕
-      </a>
+      {% if create_url == 'kitchen:cook_create' %}
+        <a href="{% url 'kitchen:cook_create' %}"
+           class="btn btn-outline-success btn-sm d-flex align-items-center justify-content-center"
+           style="height: 38px; width: 38px;" title="Create Cook">
+          ➕
+        </a>
+      {% elif create_url == 'kitchen:dish_create' %}
+        <a href="{% url 'kitchen:dish_create' %}"
+           class="btn btn-outline-success btn-sm d-flex align-items-center justify-content-center"
+           style="height: 38px; width: 38px;" title="Create Dish">
+          ➕
+        </a>
+      {% elif create_url == 'kitchen:dishtype_create' %}
+        <a href="{% url 'kitchen:dishtype_create' %}"
+           class="btn btn-outline-success btn-sm d-flex align-items-center justify-content-center"
+           style="height: 38px; width: 38px;" title="Create Dish Type">
+          ➕
+        </a>
+      {% endif %}
     {% endif %}
   </div>
 </form>

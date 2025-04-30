@@ -17,7 +17,7 @@
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-success">Submit</button>
-        <a href="{% url 'kitchen:dish-list' %}" class="btn btn-secondary">Cancel</a>
+        <a href="{% url 'kitchen:dish_list' %}" class="btn btn-secondary">Cancel</a>
       </form>
     </div>
   </div>

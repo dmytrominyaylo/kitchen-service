@@ -23,20 +23,20 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_dish_list_view(self):
-        response = self.client.get(reverse("kitchen:dish-list"))
+        response = self.client.get(reverse("kitchen:dish_list"))
         self.assertEqual(response.status_code, 200)
 
     def test_dish_detail_view(self):
         response = self.client.get(
             reverse(
-                "kitchen:dish-detail",
+                "kitchen:dish_detail",
                 args=[self.dish.id]
             )
         )
         self.assertEqual(response.status_code, 200)
 
     def test_cook_list_view(self):
-        response = self.client.get(reverse("kitchen:cook-list"))
+        response = self.client.get(reverse("kitchen:cook_list"))
         self.assertEqual(response.status_code, 200)
 
     def test_cook_create_view(self):
@@ -45,13 +45,13 @@ class TestViews(TestCase):
             "password1": "StrongPass123",
             "password2": "StrongPass123",
         }
-        response = self.client.post(reverse("kitchen:cook-create"), form_data)
+        response = self.client.post(reverse("kitchen:cook_create"), form_data)
         self.assertEqual(response.status_code, 200)
 
     def test_cook_delete_view(self):
         response = self.client.get(
             reverse(
-                "kitchen:cook-delete",
+                "kitchen:cook_delete",
                 args=[self.user.id]
             )
         )

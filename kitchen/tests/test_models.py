@@ -31,7 +31,7 @@ class CookModelTest(TestCase):
 
 class DishModelTest(TestCase):
     def setUp(self):
-        self.dish_type = DishType.objects.create(name="Main")
+        self.dishtype = DishType.objects.create(name="Main")
         self.cook = User.objects.create_user(username="chef", password="pass")
 
     def test_str_representation(self):
@@ -39,7 +39,7 @@ class DishModelTest(TestCase):
             name="Pasta",
             description="Delicious Italian pasta",
             price=10.50,
-            dish_type=self.dish_type
+            dish_type=self.dishtype
         )
         dish.cooks.add(self.cook)
         self.assertEqual(str(dish), "Pasta")

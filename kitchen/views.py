@@ -41,46 +41,39 @@ def index(request):
 
 class DishTypeListView(LoginRequiredMixin, generic.ListView):
     model = DishType
-    context_object_name = "dish_type_list"
+    context_object_name = "dishtype_list"
     template_name = "kitchen/dishtype_list.html"
     paginate_by = 5
 
-    def get_context_data(
-            self, *, object_list=..., **kwargs
-    ):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        name = self.request.GET.get("name", "")
-        context["search_form"] = DishTypeNameSearchForm(
-            initial={
-                "name": name
-            }
-        )
+        name = self.request.GET.get("search_value", "")
+        context["search_form"] = DishTypeNameSearchForm(initial={"name": name})
         return context
 
     def get_queryset(self):
         queryset = DishType.objects.all()
-        name = self.request.GET.get("name", "")
+        name = self.request.GET.get("search_value", "")
         if name:
             queryset = queryset.filter(name__icontains=name)
-
         return queryset
 
 
 class DishTypeCreateView(LoginRequiredMixin, generic.CreateView):
     model = DishType
     fields = "__all__"
-    success_url = reverse_lazy("kitchen:dish_type_list")
+    success_url = reverse_lazy("kitchen:dishtype_list")
 
 
 class DishTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = DishType
     fields = "__all__"
-    success_url = reverse_lazy("kitchen:dish_type_list")
+    success_url = reverse_lazy("kitchen:dishtype_list")
 
 
 class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = DishType
-    success_url = reverse_lazy("kitchen:dish_type_list")
+    success_url = reverse_lazy("kitchen:dishtype_list")
 
 
 class DishListView(LoginRequiredMixin, generic.ListView):
@@ -195,7 +188,7 @@ def toggle_assign_to_dish(request, pk):
         cook.dishes.remove(pk)
     else:
         cook.dishes.add(pk)
-    return HttpResponseRedirect(reverse_lazy("kitchen:dish-detail", args=[pk]))
+    return HttpResponseRedirect(reverse_lazy("kitchen:dish_detail", args=[pk]))
 
 
 class CustomLogoutView(LogoutView):

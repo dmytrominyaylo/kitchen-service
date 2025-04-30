@@ -6,7 +6,7 @@
       {{ dish.name }}
     </div>
     <div class="card-body">
-      <h5 class="card-title">Dish Type: {{ dish.dish_type.name }}</h5>
+      <h5 class="card-title">Dish: {{ dish.dishtype.name }}</h5>
       <hr>
       <h5>Cooks Assigned to This Dish</h5>
       <ul class="list-group list-group-flush mb-3">
@@ -29,8 +29,8 @@
             Assign Me to This Dish
           </a>
         {% endif %}
-        <a href="{% url 'kitchen:dish-update' pk=dish.id %}" class="btn btn-secondary me-2">Update</a>
-        <a href="{% url 'kitchen:dish-delete' pk=dish.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'kitchen:dish_update' pk=dish.id %}" class="btn btn-secondary me-2">Update</a>
+        <a href="{% url 'kitchen:dish_delete' pk=dish.id %}" class="btn btn-danger">Delete</a>
       </div>
     </div>
     <div class="card-footer text-muted">

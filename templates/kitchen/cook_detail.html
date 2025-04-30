@@ -12,10 +12,10 @@
       <p><strong>Is staff:</strong> {{ cook.is_staff }}</p>
     </div>
     <div class="card-footer">
-      <a href="{% url 'kitchen:cook-update' pk=cook.id %}" class="btn btn-warning me-2">
+      <a href="{% url 'kitchen:cook_update' pk=cook.id %}" class="btn btn-warning me-2">
         Update years of experience
       </a>
-      <a href="{% url 'kitchen:cook-delete' pk=cook.id %}" class="btn btn-danger">
+      <a href="{% url 'kitchen:cook_delete' pk=cook.id %}" class="btn btn-danger">
         Delete
       </a>
     </div>
@@ -42,7 +42,7 @@
               <td>{{ dish.name }}</td>
               <td>{{ dish.description }}</td>
               <td>{{ dish.price }}</td>
-              <td>{{ dish.dish_type }}</td>
+              <td>{{ dish.dishtype }}</td>
             </tr>
           {% endfor %}
           </tbody>

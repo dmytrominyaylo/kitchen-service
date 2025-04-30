@@ -52,7 +52,7 @@ class DishFormTests(TestCase):
             "name": "",
             "description": "Missing name",
             "price": "0.00",
-            "dish_type": "",
+            "dishtype": "",
             "cooks": [],
         }
         form = DishForm(data=form_data)
