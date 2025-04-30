@@ -1,6 +1,6 @@
 {% load custom_tags %}
 
-<h1 class="display-4 text-start mb-4">{{ title }}</h1>
+<h1 class="display-4 text-center mb-4">{{ title }}</h1>
 <form action="" method="get" class="w-100" novalidate>
   <div class="input-group">
     <span class="input-group-text rounded-0">🔍</span>
@@ -9,7 +9,11 @@
     <input id="search_value" name="search_value" type="search" class="form-control rounded-0" placeholder="Search..."
            value="{{ search_value }}">
     {% if user.is_authenticated %}
-      <a href="{% url 'kitchen:cook-create' %}" class="btn btn-success d-flex align-items-center">Create</a>
+      <a href="{% url 'kitchen:cook-create' %}"
+         class="btn btn-outline-success btn-sm d-flex align-items-center justify-content-center"
+         style="height: 38px; width: 38px;" title="Create">
+        ➕
+      </a>
     {% endif %}
   </div>
 </form>
