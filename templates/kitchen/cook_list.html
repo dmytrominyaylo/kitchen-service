@@ -1,36 +1,69 @@
 {% extends "base.html" %}
 
 {% block main %}
-  <div class="card">
-    <div class="card-header text-start display-6">
-      {% include "includes/header/search_title_create.html" with title="Cooks" search_field="username" %}
+  <div class="card text-center">
+    <div class="card-header">
+      <h2 class="text-center mb-3">Cooks</h2>
+
+      <div class="d-flex justify-content-center align-items-center gap-2">
+        {% include "includes/header/search_title_create.html" with search_field="username" %}
+      </div>
     </div>
+
     <div class="card-body">
       <table class="table">
         <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First name</th>
-            <th scope="col">Last name</th>
-            <th scope="col">Username</th>
-            <th scope="col">Years of experience</th>
-          </tr>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+          <th scope="col">Username</th>
+          <th scope="col">Years of experience</th>
+          <th scope="col">Actions</th>
+        </tr>
         </thead>
         <tbody>
-          {% for cook in object_list %}
-            <tr>
-              <th scope="row">{{ cook.id }}</th>
-              <td>{{ cook.first_name }}</td>
-              <td>{{ cook.last_name }}</td>
-              <td>{{ cook.username }}</td>
-              <td>{{ cook.years_of_experience }}</td>
-            </tr>
-          {% endfor %}
+        {% for cook in object_list %}
+          <tr>
+            <th scope="row">{{ cook.id }}</th>
+            <td>{{ cook.first_name }}</td>
+            <td>{{ cook.last_name }}</td>
+            <td>{{ cook.username }}</td>
+            <td>{{ cook.years_of_experience }}</td>
+            <td>
+              <a href="{% url 'kitchen:cook-update' cook.id %}" class="btn btn-sm btn-warning me-2">
+                Update
+              </a>
+              <a href="{% url 'kitchen:cook-delete' cook.id %}" class="btn btn-sm btn-danger">
+                Delete
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
         </tbody>
       </table>
     </div>
+
     <div class="card-footer">
-      {% include "includes/pagination.html" %}
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mb-0">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">Prev</a>
+            </li>
+          {% endif %}
+          {% for i in page_obj.paginator.page_range %}
+            <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+              <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+            </li>
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">Next</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
     </div>
   </div>
 {% endblock %}
