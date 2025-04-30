@@ -1,4 +1,31 @@
-.idea
-venv
-**__pycache__
+# IDE and editor config
+.idea/
+.vscode/
+
+# Python cache and logs
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+
+# Django-specific
 db.sqlite3
+*.sqlite3
+media/
+staticfiles/
+.env
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# PyCharm specific
+*.iml
+*.ipr
+*.iws
