@@ -85,13 +85,29 @@ class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class DishListView(LoginRequiredMixin, generic.ListView):
     model = Dish
-    context_object_name = "dishes"
     template_name = "kitchen/dish_list.html"
+    context_object_name = "dishes"
     paginate_by = 5
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_field = self.request.GET.get("search_field", "")
+        search_value = self.request.GET.get("search_value", "")
+
+        if search_field and search_value:
+            if search_field == "name":
+                queryset = queryset.filter(name__icontains=search_value)
+            elif search_field == "dish_type":
+                queryset = queryset.filter(
+                    dish_type__name__icontains=search_value
+                )
+            elif search_field == "price":
+                try:
+                    queryset = queryset.filter(price=float(search_value))
+                except ValueError:
+                    queryset = queryset.none()
+
+        return queryset
 
 
 class DishDetailView(LoginRequiredMixin, generic.DetailView):

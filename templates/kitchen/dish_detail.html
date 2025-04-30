@@ -1,35 +1,40 @@
 {% extends "base.html" %}
 
 {% block main %}
-  <h1>
-    {{ dish.name }}
-    <a href="{% url 'kitchen:dish-delete' pk=dish.id %}" class="btn btn-danger link-to-page">
-      Delete
-    </a>
-
-    <a href="{% url 'kitchen:dish-update' pk=dish.id %}" class="btn btn-secondary link-to-page">
-      Update
-    </a>
-  </h1>
-  <p>Dish Type: ({{ dish.dish_type.name }})</p>
-  <h1>
-    Cooks
-
-    {% if dish in user.dishes.all %}
-      <a href="{% url 'kitchen:toggle-dish-assign' pk=dish.id %}" class="btn btn-danger link-to-page">
-        Delete me from this dish
-      </a>
-    {% else %}
-      <a href="{% url 'kitchen:toggle-dish-assign' pk=dish.id %}" class="btn btn-success link-to-page">
-        Assign me from this dish
-      </a>
-    {% endif %}
-
-  </h1>
-  <hr>
-  <ul>
-    {% for cook in dish.cooks.all %}
-      <li>{{ cook.username }} ({{ cook.first_name }} {{ cook.last_name }})</li>
-    {% endfor %}
-  </ul>
+  <div class="card text-center">
+    <div class="card-header display-6">
+      {{ dish.name }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Dish Type: {{ dish.dish_type.name }}</h5>
+      <hr>
+      <h5>Cooks Assigned to This Dish</h5>
+      <ul class="list-group list-group-flush mb-3">
+        {% for cook in dish.cooks.all %}
+          <li class="list-group-item">
+            {{ cook.username }} ({{ cook.first_name }} {{ cook.last_name }})
+          </li>
+        {% empty %}
+          <li class="list-group-item text-muted">No cooks assigned to this dish.</li>
+        {% endfor %}
+      </ul>
+      <hr>
+      <div class="d-flex justify-content-center">
+        {% if dish in user.dishes.all %}
+          <a href="{% url 'kitchen:toggle-dish-assign' pk=dish.id %}" class="btn btn-danger me-2">
+            Remove Me from This Dish
+          </a>
+        {% else %}
+          <a href="{% url 'kitchen:toggle-dish-assign' pk=dish.id %}" class="btn btn-success me-2">
+            Assign Me to This Dish
+          </a>
+        {% endif %}
+        <a href="{% url 'kitchen:dish-update' pk=dish.id %}" class="btn btn-secondary me-2">Update</a>
+        <a href="{% url 'kitchen:dish-delete' pk=dish.id %}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      Manage cooks and dish assignments
+    </div>
+  </div>
 {% endblock %}

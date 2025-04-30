@@ -6,14 +6,13 @@ from kitchen.models import Dish, Cook, DishType
 
 
 class DishForm(forms.ModelForm):
-    cooks = forms.ModelMultipleChoiceField(
-        queryset=get_user_model().objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-    )
-
     class Meta:
         model = Dish
-        fields = "__all__"
+        fields = (
+            "name",
+            "dish_type",
+            "price",
+        )
 
 
 class CookCreationForm(UserCreationForm):
