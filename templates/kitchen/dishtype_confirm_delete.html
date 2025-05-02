@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <div class="card text-center">
+    <div class="card-header display-6 text-danger">
+      Delete dish type
+    </div>
+    <div class="card-body">
+      <p>Are you sure you want to delete the dish type: <strong>{{ object }}</strong>?</p>
+    </div>
+    <div class="card-footer">
+      <form method="post" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger me-2">Yes, delete</button>
+      </form>
+      <a href="{% url 'kitchen:dishtype_list' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </div>
+{% endblock %}

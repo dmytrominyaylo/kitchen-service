@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" class="h-100" data-bs-theme="light">
+<head>
+  {% include "includes/config/meta.html" %}
+  <title>Kitchen Service</title>
+  {% include "includes/config/head_links.html" %}
+</head>
+<body class="d-flex flex-column h-100">
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+
+</svg>
+
+<header>
+  {% include "includes/navbar.html" %}
+</header>
+
+<main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+  {% block main %}
+  {% endblock %}
+</main>
+
+<footer class="py-3 bg-dark text-white">
+  <div class="container text-center">
+    {% include "includes/footer.html" %}
+  </div>
+</footer>
+
+{% include "includes/config/scripts.html" %}
+</body>
+</html>

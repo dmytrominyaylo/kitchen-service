@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 100px);">
+    <div class="p-5 rounded-4 shadow text-white w-100" style="background-color: rgba(0, 0, 0, 0.6); max-width: 600px;">
+      <p class="fs-4 mb-4 text-center">You have been successfully logged out.</p>
+      <div class="text-center">
+        <a href="{% url 'login' %}" class="btn btn-outline-light">Click here to login again</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

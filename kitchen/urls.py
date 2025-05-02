@@ -1,0 +1,106 @@
+from django.urls import path
+from .views import (
+    index,
+    DishListView,
+    DishDetailView,
+    DishCreateView,
+    DishUpdateView,
+    DishDeleteView,
+    CookListView,
+    CookDetailView,
+    CookCreateView,
+    CookUpdateView,
+    CookDeleteView,
+    DishTypeListView,
+    DishTypeCreateView,
+    DishTypeUpdateView,
+    DishTypeDeleteView,
+    toggle_assign_to_dish,
+    CustomLogoutView,
+)
+
+urlpatterns = [
+    path("", index, name="index"),
+    path(
+        "dish-types/",
+        DishTypeListView.as_view(),
+        name="dishtype_list"
+    ),
+    path(
+        "dish-types/create/",
+        DishTypeCreateView.as_view(),
+        name="dishtype_create"
+    ),
+    path(
+        "dish-types/<int:pk>/update/",
+        DishTypeUpdateView.as_view(),
+        name="dishtype_update"
+    ),
+    path(
+        "dish-types/<int:pk>/delete/",
+        DishTypeDeleteView.as_view(),
+        name="dishtype_delete"
+    ),
+    path(
+        "dishes/",
+        DishListView.as_view(),
+        name="dish_list"
+    ),
+    path(
+        "dishes/<int:pk>/",
+        DishDetailView.as_view(),
+        name="dish_detail"
+    ),
+    path(
+        "dishes/create/",
+        DishCreateView.as_view(),
+        name="dish_create"
+    ),
+    path(
+        "dishes/<int:pk>/update/",
+        DishUpdateView.as_view(),
+        name="dish_update"
+    ),
+    path(
+        "dishes/<int:pk>/delete/",
+        DishDeleteView.as_view(),
+        name="dish_delete"
+    ),
+    path(
+        "dishes/<int:pk>/toggle-assign/",
+        toggle_assign_to_dish,
+        name="toggle-dish-assign",
+    ),
+    path(
+        "cooks/",
+        CookListView.as_view(),
+        name="cook_list"
+    ),
+    path(
+        "cooks/<int:pk>/",
+        CookDetailView.as_view(),
+        name="cook_detail"
+    ),
+    path(
+        "cooks/create/",
+        CookCreateView.as_view(),
+        name="cook_create"
+    ),
+    path(
+        "cooks/<int:pk>/update/",
+        CookUpdateView.as_view(),
+        name="cook_update"
+    ),
+    path(
+        "cooks/<int:pk>/delete/",
+        CookDeleteView.as_view(),
+        name="cook_delete"
+    ),
+    path(
+        "logout/",
+        CustomLogoutView.as_view(),
+        name="logout"
+    ),
+]
+
+app_name = "kitchen"

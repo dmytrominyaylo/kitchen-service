@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 100px);">
+    <div class="p-5 rounded-4 shadow text-white w-100" style="background-color: rgba(0, 0, 0, 0.6); max-width: 400px;">
+      <h2 class="text-center mb-4">Please enter your credentials to access your account.</h2>
+      <form method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Sign in</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
