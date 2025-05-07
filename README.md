@@ -14,6 +14,22 @@ This project is designed for both:
 
 ---
 
+## 🌐 Demo
+
+You can view the live project at:  
+[**kitchen-service-1yyq.onrender.com**](https://kitchen-service-1yyq.onrender.com)
+
+---
+
+## 👤 Test User
+
+For testing purposes, you can log in with the following credentials:
+
+- **Username**: `user`
+- **Password**: `user12345`
+
+---
+
 ## 🔧 Features
 
 - 🔑 **User Registration**: Allows new users to sign up and access the system.
@@ -24,7 +40,7 @@ This project is designed for both:
 ## ⚙️ Technology Stack
 
 - 🐍 **Backend**: Django  
-- 💅 **Frontend**: Bootstrap, custom **HTML templates** and **CSS styles**
+- 🎨 **Frontend**: Bootstrap, custom **HTML templates** and **CSS styles**
 
 ---
 
