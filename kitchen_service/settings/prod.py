@@ -7,7 +7,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'localhost',
+    'kitchen-service-1yyq.onrender.com',
 ]
 
 external_hostname = os.getenv('RENDER_EXTERNAL_HOSTNAME')
