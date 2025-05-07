@@ -5,7 +5,14 @@ from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+]
+
+external_hostname = os.getenv('RENDER_EXTERNAL_HOSTNAME')
+if external_hostname:
+    ALLOWED_HOSTS.append(external_hostname)
 
 
 # Database
